@@ -16,6 +16,7 @@
 #include <maya/MItGeometry.h>
 
 #include <cmath>
+#include <iostream>
 
 MString UselessyExpensiveDeformer::typeName{ "UselessyExpensiveDeformer" };
 MTypeId UselessyExpensiveDeformer::typeId{ 0x0000001 };
@@ -50,13 +51,22 @@ MStatus UselessyExpensiveDeformer::deform(MDataBlock & block, MItGeometry & iter
 	CHECK_MSTATUS_AND_RETURN_IT(iterator.allPositions(vertexPositions));
 
 	unsigned int vertexCount{ vertexPositions.length() };
+	auto start = std::chrono::high_resolution_clock::now();
 	for (unsigned int vertexIndex{ 0 }; vertexIndex < vertexCount; vertexIndex++, iterator.next()) {
 		MPoint point = iterator.position(MSpace::kObject, &status);
 
 		point.z = std::pow(std::pow(point.x, 8), std::floor(point.y / 8)) * 5;
 		vertexPositions[vertexIndex] = point;
 	}
+	auto end = std::chrono::high_resolution_clock::now();
 
+	time += end - start;
+	++counter;
+	if (counter >= 100) {
+		std::cout << this->name() << " Sample: " << std::chrono::duration_cast<std::chrono::microseconds>(time).count() << "micros. 100 deform calls with an average of " << std::chrono::duration_cast<std::chrono::microseconds>(time / 100).count() << "micros per call." << std::endl;
+		time = time.zero();
+		counter = 0;
+	}
 	iterator.setAllPositions(vertexPositions);
 	return MStatus::kSuccess;
 }

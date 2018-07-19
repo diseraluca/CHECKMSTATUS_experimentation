@@ -16,8 +16,12 @@
 
 #include <maya/MPxDeformerNode.h>
 
+#include <chrono>
+
 class UselessyExpensiveDeformer : public MPxDeformerNode {
 public:
+	UselessyExpensiveDeformer() :time{}, counter{ 0 } {}
+
 	static void* creator();
 	static MStatus initialize();
 	virtual MStatus deform(MDataBlock & block, MItGeometry & iterator, const MMatrix & matrix, unsigned int multiIndex) override;
@@ -27,4 +31,8 @@ public:
 	static MTypeId typeId;
 
 	static MObject animateMe;
+
+private:
+	std::chrono::duration<double> time;
+	int counter;
 };
