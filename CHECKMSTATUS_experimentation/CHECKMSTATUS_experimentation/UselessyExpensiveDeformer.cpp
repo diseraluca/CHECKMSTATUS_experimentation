@@ -11,6 +11,8 @@
 
 #include "UselessyExpensiveDeformer.h"
 
+#include <maya/MFnNumericAttribute.h>
+
 MString UselessyExpensiveDeformer::typeName{ "UselessyExpensiveDeformer" };
 MTypeId UselessyExpensiveDeformer::typeId{ 0x0000001 };
 
@@ -23,7 +25,18 @@ void * UselessyExpensiveDeformer::creator()
 
 MStatus UselessyExpensiveDeformer::initialize()
 {
-	return MStatus();
+	MStatus status{};
+
+	MFnNumericAttribute nAttr;
+
+	animateMe = nAttr.create("animateMe", "anm", MFnNumericData::kDouble, 0.0, &status);
+	CHECK_MSTATUS_AND_RETURN_IT(status);
+	CHECK_MSTATUS(nAttr.setKeyable(true));
+	CHECK_MSTATUS(addAttribute(animateMe));
+
+	CHECK_MSTATUS(attributeAffects(animateMe, outputGeom));
+
+	return MStatus::kSuccess;
 }
 
 MStatus UselessyExpensiveDeformer::deform(MDataBlock & block, MItGeometry & iterator, const MMatrix & matrix, unsigned int multiIndex)
