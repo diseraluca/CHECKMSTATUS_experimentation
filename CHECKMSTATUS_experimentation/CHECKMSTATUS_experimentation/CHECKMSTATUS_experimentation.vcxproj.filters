@@ -24,12 +24,18 @@
     <ClCompile Include="UselessyExpensiveDeformerWithCheck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UselessyExpensiveDeformerWithCheckAndReturn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UselessyExpensiveDeformer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UselessyExpensiveDeformerWithCheck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UselessyExpensiveDeformerWithCheckAndReturn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

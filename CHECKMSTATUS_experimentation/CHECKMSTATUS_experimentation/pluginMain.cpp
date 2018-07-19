@@ -11,6 +11,7 @@
 
 #include "UselessyExpensiveDeformer.h"
 #include "UselessyExpensiveDeformerWithCheck.h"
+#include "UselessyExpensiveDeformerWithCheckAndReturn.h"
 
 #include <maya/MFnPlugin.h>
 
@@ -25,6 +26,9 @@ MStatus initializePlugin(MObject obj) {
 	status = plugin.registerNode(UselessyExpensiveDeformerWithCheck::typeName, UselessyExpensiveDeformerWithCheck::typeId, UselessyExpensiveDeformerWithCheck::creator, UselessyExpensiveDeformerWithCheck::initialize, MPxNode::kDeformerNode);
 	CHECK_MSTATUS_AND_RETURN_IT(status);
 
+	status = plugin.registerNode(UselessyExpensiveDeformerWithCheckAndReturn::typeName, UselessyExpensiveDeformerWithCheckAndReturn::typeId, UselessyExpensiveDeformerWithCheckAndReturn::creator, UselessyExpensiveDeformerWithCheckAndReturn::initialize, MPxNode::kDeformerNode);
+	CHECK_MSTATUS_AND_RETURN_IT(status);
+
 	return MStatus::kSuccess;
 }
 
@@ -36,6 +40,9 @@ MStatus uninitializePlugin(MObject obj) {
 	CHECK_MSTATUS_AND_RETURN_IT(status);
 
 	status = plugin.deregisterNode(UselessyExpensiveDeformerWithCheck::typeId);
+	CHECK_MSTATUS_AND_RETURN_IT(status);
+
+	status = plugin.deregisterNode(UselessyExpensiveDeformerWithCheckAndReturn::typeId);
 	CHECK_MSTATUS_AND_RETURN_IT(status);
 
 	return MStatus::kSuccess;

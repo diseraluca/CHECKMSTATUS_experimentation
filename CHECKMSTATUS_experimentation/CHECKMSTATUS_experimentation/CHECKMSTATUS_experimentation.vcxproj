@@ -22,10 +22,12 @@
     <ClCompile Include="pluginMain.cpp" />
     <ClCompile Include="UselessyExpensiveDeformer.cpp" />
     <ClCompile Include="UselessyExpensiveDeformerWithCheck.cpp" />
+    <ClCompile Include="UselessyExpensiveDeformerWithCheckAndReturn.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UselessyExpensiveDeformer.h" />
     <ClInclude Include="UselessyExpensiveDeformerWithCheck.h" />
+    <ClInclude Include="UselessyExpensiveDeformerWithCheckAndReturn.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

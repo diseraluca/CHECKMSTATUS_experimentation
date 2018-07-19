@@ -53,7 +53,7 @@ MStatus UselessyExpensiveDeformerWithCheck::deform(MDataBlock & block, MItGeomet
 	auto start = std::chrono::high_resolution_clock::now();
 	for (unsigned int vertexIndex{ 0 }; vertexIndex < vertexCount; vertexIndex++, iterator.next()) {
 		MPoint point = iterator.position(MSpace::kObject, &status);
-		CHECK_MSTATUS_AND_RETURN_IT(status);
+		CHECK_MSTATUS(status);
 
 		point.z = std::pow(std::pow(point.x, 8), std::floor(point.y / 8)) * 5;
 		vertexPositions[vertexIndex] = point;
