@@ -14,7 +14,7 @@
 
 #include <maya/MFnPlugin.h>
 
-MStatus initializeStatus(MObject obj) {
+MStatus initializePlugin(MObject obj) {
 	MStatus status{};
 	MFnPlugin plugin{ obj, "Luca Di Sera", "1.0", "Any", &status };
 	CHECK_MSTATUS_AND_RETURN_IT(status);
