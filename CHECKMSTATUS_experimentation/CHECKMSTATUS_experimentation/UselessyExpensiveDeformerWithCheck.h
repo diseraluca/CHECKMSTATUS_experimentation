@@ -12,3 +12,18 @@
 // A version of the UselessyExpensiveDeformers that add CHECK_MSTATUS macros to the game.
 
 #pragma once
+
+#include <maya/MPxDeformerNode.h>
+
+class UselessyExpensiveDeformerWithCheck : public MPxDeformerNode {
+public:
+	static void* creator();
+	static MStatus initialize();
+	virtual MStatus deform(MDataBlock & block, MItGeometry & iterator, const MMatrix & matrix, unsigned int multiIndex) override;
+
+public:
+	static MString typeName;
+	static MTypeId typeId;
+
+	static MObject animateMe;
+};

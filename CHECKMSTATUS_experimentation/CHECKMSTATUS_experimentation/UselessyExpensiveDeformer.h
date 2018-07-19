@@ -13,3 +13,18 @@
 // Used for testing purposes.
 
 #pragma once
+
+#include <maya/MPxDeformerNode.h>
+
+class UselessyExpensiveDeformer : public MPxDeformerNode {
+public:
+	static void* creator();
+	static MStatus initialize();
+	virtual MStatus deform(MDataBlock & block, MItGeometry & iterator, const MMatrix & matrix, unsigned int multiIndex) override;
+
+public:
+	static MString typeName;
+	static MTypeId typeId;
+
+	static MObject animateMe;
+};
