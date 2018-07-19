@@ -12,6 +12,10 @@
 #include "UselessyExpensiveDeformerWithCheck.h"
 
 #include <maya/MFnNumericAttribute.h>
+#include <maya/MPointArray.h>
+#include <maya/MItGeometry.h>
+
+#include <cmath>
 
 MString UselessyExpensiveDeformerWithCheck::typeName{ "UselessyExpensiveDeformerWithCheck" };
 MTypeId UselessyExpensiveDeformerWithCheck::typeId{ 0x0000002 };
@@ -41,5 +45,19 @@ MStatus UselessyExpensiveDeformerWithCheck::initialize()
 
 MStatus UselessyExpensiveDeformerWithCheck::deform(MDataBlock & block, MItGeometry & iterator, const MMatrix & matrix, unsigned int multiIndex)
 {
-	return MStatus();
+	MStatus status{};
+	MPointArray vertexPositions{};
+	CHECK_MSTATUS_AND_RETURN_IT(iterator.allPositions(vertexPositions));
+
+	unsigned int vertexCount{ vertexPositions.length() };
+	for (unsigned int vertexIndex{ 0 }; vertexIndex < vertexCount; vertexIndex++, iterator.next()) {
+		MPoint point = iterator.position(MSpace::kObject, &status);
+		CHECK_MSTATUS_AND_RETURN_IT(status);
+
+		point.z = std::pow(std::pow(point.x, 8), std::floor(point.y / 8)) * 5;
+		vertexPositions[vertexIndex] = point;
+	}
+
+	iterator.setAllPositions(vertexPositions);
+	return MStatus::kSuccess;
 }
